@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: white;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-container .logo {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar-container .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            margin-left: 16px;
+            font-size: 16px;
+        }
+
+        .navbar-container .nav-links a:hover {
+            color: black;
+        }
+
+        .navbar-container .auth-buttons button {
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .navbar-container .auth-buttons .login-btn {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            margin-right: 8px;
+        }
+
+        .navbar-container .auth-buttons .signup-btn {
+            background-color: black;
+            color: white;
+            border: none;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: white;
+            padding: 48px 0;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-container .image-container {
+            position: relative;
+            width: 50%;
+        }
+
+        .hero-container .image-container img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .hero-container .image-container button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .hero-container .image-container button i {
+            font-size: 48px;
+            color: white;
+        }
+
+        .hero-container .text-container {
+            width: 50%;
+            padding-left: 32px;
+        }
+
+        .hero-container .text-container h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: black;
+        }
+
+        .hero-container .text-container p {
+            color: #4b5563;
+            font-size: 16px;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background-color: #f3f4f6;
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .welcome-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .welcome-section p {
+            color: #4b5563;
+            font-size: 16px;
+            margin: 16px auto;
+            max-width: 600px;
+        }
+
+        .welcome-section .logos {
+            display: flex;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        .welcome-section .logos .logo-container {
+            margin: 0 24px;
+            text-align: center;
+        }
+
+        .welcome-section .logos img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-section .logos p {
+            color: #4b5563;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="navbar-container">
+            <div class="logo">SKILL NAVIGATOR</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Register</a>
+                <a href="#">About</a>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Login</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="image-container">
+                <img src="https://placehold.co/600x400" alt="People collaborating on laptops in a workspace">
+                <button>
+                    <i class="fas fa-play-circle"></i>
+                </button>
+            </div>
+            <div class="text-container">
+                <h1>Start Learning from this website</h1>
+                <p>Start, switch, or advance your career with more than 7,000 courses, Professional Certificates, and degrees from world-class universities and companies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <h2>Welcome to the Future of Learning!</h2>
+        <p>E-learning is revolutionizing the way we acquire knowledge and skills. With flexible, accessible, and personalized learning experiences, it's easier than ever to achieve your educational goals. Discover how our e-learning solutions can benefit you.</p>
+        <div class="logos">
+            <div class="logo-container">
+                <img src="https://placehold.co/80x80" alt="AWS logo">
+                <p>AWS</p>
+            </div>
+            <div class="logo-container">
+                <img src="https://placehold.co/80x80" alt="Java logo">
+                <p>Java</p>
+            </div>
+            <div class="logo-container">
+                <img src="https://placehold.co/80x80" alt="Microsoft Azure logo">
+                <p>Microsoft Azure</p>
+            </div>
+            <div class="logo-container">
+                <img src="https://placehold.co/80x80" alt=".NET Framework logo">
+                <p>.NET Framework</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
