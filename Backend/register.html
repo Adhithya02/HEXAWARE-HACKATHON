@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Navigator Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: white;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fix navbar at the top */
+            width: 100%; /* Full width */
+            top: 0; /* Align at the top */
+            z-index: 1000; /* Ensure it stays on top */
+            left: 0;
+            right: 0;
+        }
+
+        .navbar-container {
+            margin: 0 ;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+        }
+
+        .navbar-container .logo {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .navbar-container .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            margin-right: 450px;
+            font-size: 16px;
+        }
+
+        .navbar-container .nav-links a:hover {
+            color: black;
+        }
+
+        .navbar-container .auth-buttons button {
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .navbar-container .auth-buttons .login-btn {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            margin-right: 8px;
+        }
+
+        .navbar-container .auth-buttons .signup-btn {
+            background-color: black;
+            color: white;
+            border: none;
+        }
+
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        .auth-buttons .signup-btn {
+            background-color: #000;
+            color: white;
+        }
+
+        /* Form container */
+        .form-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            margin-top: 100px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .form-container img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .form-content {
+            padding: 30px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        form input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .file-upload {
+            grid-column: span 2;
+            display: flex;
+            gap: 20px;
+        }
+
+        .file-upload button {
+            padding: 10px 20px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .file-upload button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <!-- <nav>
+        <div class="navbar-container">
+            <div class="logo">SKILL NAVIGATOR</div>
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+            </div>
+        </div>
+    </nav> -->
+
+    <!-- Registration Form -->
+    <div class="form-container">
+        <img src="ylswjsy7stw-1536x901.jpg" >
+        <div class="form-content">
+            <h2>Registration</h2>
+            <p>Fill all the details to sign up for a course</p>
+
+            <form method="post" action="http://localhost:2001/register">
+                <!-- Left Column -->
+                <div class="form-group">
+                    <label for="full-name">Full name *</label>
+                    <input type="text" id="full-name" name="name" placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label for="certifications">Certifications *</label>
+                    <input type="text" id="certifications" name="certificate"placeholder="Enter certifications">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email"name="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="internship">Internship Details *</label>
+                    <input type="text" id="internship"name="intern_detail"placeholder="Enter internship details">
+                </div>
+                <div class="form-group">
+                    <label for="degree">Degree *</label>
+                    <input type="text" id="degree" name="degree" placeholder="Enter degree">
+                </div>
+                <div class="form-group">
+                    <label for="courses">Courses Completed *</label>
+                    <input type="text" id="courses" name="courses"placeholder="Enter courses completed">
+                </div>
+                <div class="form-group">
+                    <label for="specialization">Specialization *</label>
+                    <input type="text" id="specialization" name="specialization"placeholder="Enter specialization">
+                </div>
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn Profile Link *</label>
+                    <input type="url" id="linkedin"name="linkedin"placeholder="Enter LinkedIn profile link">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone"name="phone"placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="github">Github Profile Link *</label>
+                    <input type="url" id="github"name="github" placeholder="Enter Github profile link">
+                </div>
+                <div class="form-group">
+                    <label for="languages">Programming Languages Known *</label>
+                    <input type="text" id="languages" name="languages"placeholder="Enter programming languages">
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="file-upload">
+                    <input type="file" name="certificates" multiple />
+                    <button type="submit">Register</button>
+
+                  
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

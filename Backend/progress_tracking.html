@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Progress Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+
+        header {
+            background: #35424a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            margin: 20px auto;
+            max-width: 600px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #35424a;
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            border-color: #35424a;
+            outline: none;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #35424a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4a5964;
+        }
+
+        #recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #35424a;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 15px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Training Progress Tracker</h1>
+    </header>
+
+    <main>
+        <section id="progress-tracking">
+            <h2>Track Your Progress</h2>
+            <form id="progress-form">
+                <!-- <label for="candidate-name">Candidate Name:</label>
+                <input type="text" id="candidate-name" name="candidateName" required> -->
+
+                <label for="course-completion">Course Completion (%):</label>
+                <input type="number" id="course-completion" name="courseCompletion" min="0" max="100" required>
+
+                <label for="mcq-score">MCQ Score:</label>
+                <input type="number" id="mcq-score" name="mcqScore" min="0" required>
+
+                <label for="project-score">Project Score:</label>
+                <input type="number" id="project-score" name="projectScore" min="0" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section id="ai-recommendations">
+            <h2>AI Recommendations</h2>
+            <div id="recommendations">
+                <!-- Recommendations will be displayed here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Training Progress Tracker</p>
+    </footer>
+
+    <script>
+                document.getElementById('progress-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const mcqscore=parseFloat(document.getElementById('mcq-score').value);
+                    const projectscore=parseFloat(document.getElementById('project-score').value);
+
+                    const course_completion=parseFloat(document.getElementById('course-completion').value);
+                    // const coursecompletion=parseFloat(document.getElementById('course-completion').value)
+                    
+                    try {
+                        const response= await fetch('http://localhost:2001/update-scores',{
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ mcqScore: mcqscore, projectScore: projectscore,course_completion:course_completion }),                        })
+
+                        const message=await response.text();
+                        document.getElementById('recommendations').innerText=message;
+                        
+                    } catch (error) {
+                        console.log(error);
+                        document.getElementById('recommendations').innerHTML='An error occured while updating score'
+                    }
+                })
+
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const progressForm = document.getElementById('progress-form');
+        //     const recommendationsDiv = document.getElementById('recommendations');
+
+        //     // Handle form submission
+        //     progressForm.addEventListener('submit', (e) => {
+        //         e.preventDefault();
+
+        //         // Get form values
+        //         const candidateName = document.getElementById('candidate-name').value;
+        //         const courseCompletion = parseFloat(document.getElementById('course-completion').value);
+        //         const mcqScore = parseInt(document.getElementById('mcq-score').value);
+        //         const projectScore = parseInt(document.getElementById('project-score').value);
+
+        //         // Prepare the data to send for score update
+        //         const data = {
+        //             mcqScore,
+        //             projectScore
+        //         };
+
+        //         // Send the data to the backend to update scores
+        //         fetch('http://localhost:2001/update-scores', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body: JSON.stringify(data)
+        //         })
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error('Failed to update scores');
+        //             }
+        //             return response.json();
+        //         })
+        //         .then(() => {
+        //             // After scores are updated, fetch AI recommendations
+        //             return fetch('http://localhost:2001/recommend', {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'Content-Type': 'application/json'
+        //                 },
+        //                 body: JSON.stringify({ mcqScore, projectScore })
+        //             });
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             // Display the recommendations
+        //             displayRecommendations(data);
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //             recommendationsDiv.innerHTML = `<p>Error fetching recommendations. Please try again later.</p>`;
+        //         });
+        //     });
+
+        //     // Function to display recommendations
+        //     function displayRecommendations(data) {
+        //         recommendationsDiv.innerHTML = '';
+                
+        //         if (data) {
+        //             recommendationsDiv.innerHTML += `<p>Course Focus: ${data.courseFocus}</p>`;
+        //             recommendationsDiv.innerHTML += `<p>MCQ Focus: ${data.mcqFocus}</p>`;
+        //             recommendationsDiv.innerHTML += `<p>Project Focus: ${data.projectFocus}</p>`;
+        //             recommendationsDiv.innerHTML += `<p>Batch Strategy: ${data.batchStrategy}</p>`;
+        //         } else {
+        //             recommendationsDiv.innerHTML = `<p>No recommendations available.</p>`;
+        //         }
+        //     }
+        // });
+    </script>
+</body>
+</html>
