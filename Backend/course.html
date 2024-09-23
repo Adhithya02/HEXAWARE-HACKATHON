@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java MCQ Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .question {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        #result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="course">
+        <h1>Java Course</h1>
+        <button onclick="showChapters()">Start Quiz</button>
+    </div>
+
+    <div class="container" id="chapters" style="display: none;">
+        <h1>Select a Chapter</h1>
+        <button onclick="startQuiz()">Chapter 1</button>
+    </div>
+
+    <div class="container" id="quiz" style="display: none;">
+        <h1>Chapter 1 Quiz</h1>
+        <form id="quiz-form"></form>
+        <button id="submit-btn">Submit</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the default value of an int variable?", options: ["0", "1", "null", "undefined"], answer: "0" },
+            { question: "Which of these is a valid declaration of a char?", options: ["char ch = 'a';", "char ch = 'aa';", "char ch = \"a\";", "char ch = a;"], answer: "char ch = 'a';" },
+            { question: "Which keyword is used to create a class in Java?", options: ["class", "object", "new", "define"], answer: "class" },
+            { question: "Which of these is a valid variable declaration?", options: ["int 1a;", "int a1;", "int a-b;", "int a b;"], answer: "int a1;" },
+            { question: "What does JVM stand for?", options: ["Java Variable Machine", "Java Virtual Machine", "Java Version Machine", "Java Visual Machine"], answer: "Java Virtual Machine" },
+            { question: "Which of these is not a Java feature?", options: ["Dynamic", "Architecture Neutral", "Use of pointers", "Object-oriented"], answer: "Use of pointers" },
+            { question: "Which symbol is used for comments in Java?", options: ["//", "/*", "<!--", "#"], answer: "//" },
+            { question: "What is the size of a byte in Java?", options: ["8 bits", "16 bits", "32 bits", "64 bits"], answer: "8 bits" },
+            { question: "Which of these is a loop in Java?", options: ["for", "if", "switch", "goto"], answer: "for" },
+            { question: "Which method is called when an object is created?", options: ["init()", "start()", "constructor()", "main()"], answer: "constructor()" }
+        ];
+
+        function showChapters() {
+            document.getElementById("course").style.display = "none";
+            document.getElementById("chapters").style.display = "block";
+        }
+
+        function startQuiz() {
+            document.getElementById("chapters").style.display = "none";
+            document.getElementById("quiz").style.display = "block";
+
+            const quizForm = document.getElementById("quiz-form");
+            quizForm.innerHTML = ""; // Clear previous questions
+
+            questions.forEach((q, index) => {
+                const questionElement = document.createElement("div");
+                questionElement.className = "question";
+                questionElement.innerHTML = `
+                    <p>${index + 1}. ${q.question}</p>
+                    ${q.options.map((option) => `
+                        <label>
+                            <input type="radio" name="question${index}" value="${option}" required>
+                            ${option}
+                        </label>
+                    `).join('')}
+                `;
+                quizForm.appendChild(questionElement);
+            });
+
+            document.getElementById("submit-btn").onclick = function () {
+                let score = 0;
+                questions.forEach((q, index) => {
+                    const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                    if (selected && selected.value === q.answer) {
+                        score++;
+                    }
+                });
+                const percentage = (score / questions.length) * 100;
+                document.getElementById("result").innerHTML = `
+                    <h3>Your Score: ${score}/${questions.length}</h3>
+                    <h3>Percentage: ${percentage.toFixed(2)}%</h3>
+                    <button onclick="location.reload()">Restart Quiz</button>
+                `;
+                quizForm.style.display = 'none';
+                document.getElementById("submit-btn").style.display = 'none';
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Hide the scrollbar on the body */
+        }
+
+        /* Container for scroll snapping */
+        .scroll-container {
+            height: 100vh; /* Each section takes up full viewport height */
+            scroll-snap-type: y mandatory; /* Enable scroll snap */
+            overflow-y: scroll; /* Ensure the container can scroll */
+        }
+
+        /* Sections */
+        section {
+            height: 100vh; /* Each section takes up full viewport height */
+            scroll-snap-align: start; /* Snap to the start of each section */
+        }
+
+        /* Navbar */
+        nav {
+            background-color: white;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fix navbar at the top */
+            width: 100%; /* Full width */
+            top: 0; /* Align at the top */
+            z-index: 1000; /* Ensure it stays on top */
+        }
+
+        .navbar-container {
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+        }
+
+        .navbar-container .logo {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .navbar-container .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            margin-left: 16px;
+            font-size: 16px;
+        }
+
+        .navbar-container .nav-links a:hover {
+            color: black;
+        }
+
+        .navbar-container .auth-buttons button {
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .navbar-container .auth-buttons .login-btn {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            margin-right: 8px;
+        }
+
+        .navbar-container .auth-buttons .signup-btn {
+            background-color: black;
+            color: white;
+            border: none;
+        }
+
+        /* Hero Section */
+        .hero-section {
+    background-color: #EFEFEF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    padding: 20px; /* Add padding for better spacing */
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px; /* Added padding for better spacing */
+}
+
+.video-container {
+    position: relative;
+    width: 70%; /* Adjust width for better alignment */
+}
+
+.video-container video {
+    width: 100%;
+    border-radius: 8px;
+    height: auto;
+}
+
+.text-container {
+    width: 40%; /* Maintain width for consistency */
+    padding-left: 52px;
+    margin-bottom: 150px;
+}
+
+.text-container h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: black;
+}
+
+.text-container p {
+    color: #4b5563;
+    font-size: 20px;
+    line-height: 1.5; /* Improved line height */
+    width: 150%; /* Make sure p tag uses full width */
+    margin: 0; /* Remove default margin for better alignment */
+}
+
+        /* Welcome Section */
+        .welcome-section {
+        background-color: #f3f4f6;
+        padding: 48px 0;
+        text-align: center; /* Center text */
+    }
+
+    .welcome-section h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: black;
+        margin-top: 40px;
+    
+    }
+
+    .welcome-section p {
+        color: #000000;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        text-align: left;
+        margin-left: 40px;
+        margin-right: 50px;
+        line-height: 30px;
+        
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Space between cards */
+        margin-top: 40px; /* Add margin for spacing */
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 440px; /* Adjusted card width for consistency */
+        transition: transform 0.6s;
+        height: 300px;
+        margin: 10px;
+    }
+
+    .card img {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .card:hover {
+        transform: scale(1.09); /* Slight zoom effect on hover */
+    }
+
+        /* Scrollable Effect Section */
+        .scrollable-section {
+            background-color: #f9fafb;
+            padding: 48px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scrollable-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transform: translateY(0);
+            transition: transform 0.3s ease-out;
+        }
+
+        .scrollable-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+        .modal-content h2{
+            text-align: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 8% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            height: 400px;
+            max-width: 400px;
+            border-radius: 30px;
+        }
+        .fgt-ps{
+            position: relative;
+            bottom: 20px;
+            
+
+
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 120px;
+            margin: auto 35%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .hero-container .video-container button {
+    display: none; /* Hide the play button initially */
+}
+
+.down-arrow {
+    display: block;
+    margin: 20px auto;
+    width: 60px;
+    position: relative;
+    right: 15%;
+    top: 20%; /* Adjusted for better vertical centering */
+    height: 60px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+
+.down-arrow:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+.welcome-button {
+            background-color: black;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px; /* Space above the button */
+            font-size: 16px; /* Font size */
+        }
+
+        .welcome-button:hover {
+            background-color: #333; /* Darker shade on hover */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="navbar-container">
+            
+            <div class="logo">SKILL NAVIGATOR</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#">About</a>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn" id="loginBtn">Login</button>
+                <button class="signup-btn" id="signupBtn">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scroll Container -->
+    <div class="scroll-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <div class="video-container">
+                    <video id="hero-video" muted loop autoplay>
+                        <source src="Product Demo Video _ SaaS Explainer Video _ Infinity.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <button id="play-button">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="text-container">
+                    <h1>Start Learning <br>from this website</h1>
+                    <p>Start, switch, or advance your career with more than 7,000 courses, Professional Certificates, and degrees from world-class universities and companies. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi officia nulla consequatur cupiditate qui itaque ipsum, a id debitis repudiandae voluptates dignissimos! Ipsum sapiente sed vitae accusamus cumque excepturi commodi.</p>
+                </div>
+            </div>
+            <button class="down-arrow" onclick="scrollToSection('.welcome-section')">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </section>
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2>Welcome to the Future of Learning!</h2>
+            <p>E-learning is revolutionizing the way we acquire knowledge and skills. With flexible, accessible, and personalized learning experiences, it's easier than ever to achieve your educational goals. Discover how our e-learning solutions can benefit you. 
+               This innovative approach empowers learners to study at their own pace, providing on-demand access to a wealth of resources. Discover how our e-learning solutions can enhance your learning journey and open doors to new opportunities for personal and professional growth.</p>
+            <div class="card-container">
+                <a href="https://example.com/course1" class="card">
+                    <img src="de1.jpg" alt="Course 1">
+                </a>
+                <a href="https://example.com/course2" class="card">
+                    <img src="de2.jpg" alt="Course 2">
+                </a>
+                <a href="https://example.com/course3" class="card">
+                    <img src="de3.jpg" alt="Course 3">
+                </a>
+            </div>
+            <button class="welcome-button" onclick="scrollToSection2('.scrollable-section')">Learn More</button> <!-- New button -->
+
+            
+        </section>
+
+        <!-- Scrollable Effect Section -->
+        <section class="scrollable-section">
+            <div class="scrollable-content">
+                <h2>Discover More Features</h2>
+                <p>Explore the advanced features and benefits that can help you enhance your learning experience. From interactive content to personalized feedback, see how our platform can help you reach your goals.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="loginClose">&times;</span>
+            <h2>Login</h2>
+            <form method="post" action="http://localhost:2001/signin">
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" name="email" required>
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="password" required>
+                    <h5 class="fgt-ps">Forgot Password?</h5>
+                <button type="submit" value="login">Login</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="signupClose">&times;</span>
+            <h2>Sign Up</h2>
+            <form method="post"  action="http://localhost:2001/user"> 
+                <label for="signupName">Name:</label>
+                <input type="text" id="signupName" name="name" >
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="email" >
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" name="password" >
+                <button type="submit" value="login">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        var loginModal = document.getElementById('loginModal');
+        var signupModal = document.getElementById('signupModal');
+        var loginBtn = document.getElementById('loginBtn');
+        var signupBtn = document.getElementById('signupBtn');
+        var loginClose = document.getElementById('loginClose');
+        var signupClose = document.getElementById('signupClose');
+
+        // Open login modal
+        loginBtn.onclick = function() {
+            loginModal.style.display = 'block';
+        }
+
+        // Open sign-up modal
+        signupBtn.onclick = function() {
+            signupModal.style.display = 'block';
+        }
+
+        // Close login modal
+        loginClose.onclick = function() {
+            loginModal.style.display = 'none';
+        }
+
+        // Close sign-up modal
+        signupClose.onclick = function() {
+            signupModal.style.display = 'none';
+        }
+
+        // Close modals if clicking outside of the modal content
+        window.onclick = function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (event.target === signupModal) {
+                signupModal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('play-button').addEventListener('click', function() {
+            var video = document.getElementById('hero-video');
+            if (video.paused) {
+                video.play();
+                this.style.display = 'none'; // Hide the play button when the video is playing
+            } else {
+                video.pause();
+                this.style.display = 'block'; // Show the play button when the video is paused
+            }
+        });
+
+        // Optional: Show the play button again when the video ends
+        document.getElementById('hero-video').addEventListener('ended', function() {
+            document.getElementById('play-button').style.display = 'block';
+        });
+
+        function scrollToSection(section) {
+    const targetSection = document.querySelector(section);
+    if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+function scrollToSection2(section) {
+            const targetSection = document.querySelector(section);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+    </script>
+
+</body>
+</html>
